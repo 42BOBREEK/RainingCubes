@@ -22,7 +22,8 @@ public class CubeSpawner : MonoBehaviour
         cube.transform.position = _spawningPositions[spawningPositionIndex].position;
         cube.transform.rotation = _spawningPositions[spawningPositionIndex].rotation;
 
-        StartCoroutine(DeactivateCube(cube));
+        _cubesPool.StartCoroutine(_cubesPool.WaitForDeactivatedCube(cube));
+        cube.StartCoroutine(cube.DeactivateCube());
     }
 
     private IEnumerator CreateCubes()
@@ -35,13 +36,13 @@ public class CubeSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator DeactivateCube(Cube cube)
+    /*private IEnumerator DeactivateCube(Cube cube)
     {
-        if(cube.ColorChanged == false)
+        if(cube.IsColorChanged == false)
             yield return null;
 
         yield return new WaitForSeconds(cube.DelayActivity);
 
         _cubesPool.ReturnCube(cube);
-    }
+    }*/
 }

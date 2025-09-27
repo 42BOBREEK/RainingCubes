@@ -1,11 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class CubesPool : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
+    [SerializeField] private Cube _cubePrefab;
 
     private Queue<Cube> _pool = new Queue<Cube>();
+
+    public IEnumerator WaitForDeactivatedCube(Cube cube)
+    { 
+        if(cube.IsDeactivated == false)
+        {
+            yield return null;
+        }
+        else 
+        {
+            print(cube.IsDeactivated);
+            print("returning");
+            ReturnCube(cube);
+        }
+    } 
 
     public Cube GetCube()
     {
@@ -16,7 +31,7 @@ public class CubesPool : MonoBehaviour
             return cube;
         }
 
-        return Instantiate(_cubePrefab).GetComponent<Cube>();
+        return Instantiate(_cubePrefab);
     }
 
     public void ReturnCube(Cube cube)

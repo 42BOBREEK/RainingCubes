@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-    [SerializeField] private Renderer _renderer;
     private Color _defaultColor;
+    private Renderer _renderer;
 
-    private void Start()
+    private void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _defaultColor = _renderer.material.color;
