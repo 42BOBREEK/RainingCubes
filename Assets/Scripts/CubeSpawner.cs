@@ -5,17 +5,19 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private CubesPool _cubesPool;
     [SerializeField] private Transform[] _spawningPositions;
+    [SerializeField] private int _spawningCooldown;
+    [SerializeField] private bool _isSpawning;
 
     private void Start()
     {
-        InvokeRepeating("CreateCube", 1f, 2f);
+        StartCoroutine(CreateCubes());
     }
 
     private void CreateCube()
     {
         int spawningPositionIndex = Random.Range(0, _spawningPositions.Length);
 
-        GameObject cube = _cubesPool.GetObject();
+        Cube cube = _cubesPool.GetCube();
 
         cube.transform.position = _spawningPositions[spawningPositionIndex].position;
         cube.transform.rotation = _spawningPositions[spawningPositionIndex].rotation;
@@ -23,15 +25,23 @@ public class CubeSpawner : MonoBehaviour
         StartCoroutine(DeactivateCube(cube));
     }
 
-    IEnumerator DeactivateCube(GameObject cube)
+    private IEnumerator CreateCubes()
     {
-        Cube cubeScript = cube.GetComponent<Cube>();
+        while(_isSpawning)
+        {
+            CreateCube();
 
-        if(cubeScript.colorChanged == false)
+            yield return new WaitForSeconds(_spawningCooldown);
+        }
+    }
+
+    private IEnumerator DeactivateCube(Cube cube)
+    {
+        if(cube.ColorChanged == false)
             yield return null;
 
-         yield return new WaitForSeconds(cube.GetComponent<Cube>().destroyDelay);
+        yield return new WaitForSeconds(cube.DelayActivity);
 
-         _cubesPool.ReturnObject(cube);
+        _cubesPool.ReturnCube(cube);
     }
 }

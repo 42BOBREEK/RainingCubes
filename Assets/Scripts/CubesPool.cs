@@ -5,28 +5,25 @@ public class CubesPool : MonoBehaviour
 {
     [SerializeField] private GameObject _cubePrefab;
 
-    private Queue<GameObject> _pool = new Queue<GameObject>();
+    private Queue<Cube> _pool = new Queue<Cube>();
 
-    public GameObject GetObject()
+    public Cube GetCube()
     {
         if(_pool.Count > 0)
         {
-            GameObject obj = _pool.Dequeue();
-            obj.SetActive(true);
-            return obj;
+            Cube cube = _pool.Dequeue();
+            cube.SetActivity(true);
+            return cube;
         }
 
-        return Instantiate(_cubePrefab);
+        return Instantiate(_cubePrefab).GetComponent<Cube>();
     }
 
-    public void ReturnObject(GameObject obj)
+    public void ReturnCube(Cube cube)
     {
-        if(obj.TryGetComponent<Cube>(out Cube cube) == true)
-        {
-            cube.GetComponent<ColorChanger>().ResetColor();
-        }
+        cube.GetComponent<ColorChanger>().ResetColor();
         
-        obj.SetActive(false);
-        _pool.Enqueue(obj);
+        cube.SetActivity(false);
+        _pool.Enqueue(cube);
     }
 }

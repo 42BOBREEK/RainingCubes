@@ -834,6 +834,8 @@ MonoBehaviour:
   - {fileID: 1248830537}
   - {fileID: 1645350016}
   - {fileID: 884023148}
+  _spawningCooldown: 2
+  _isSpawning: 1
 --- !u!4 &1854787731
 Transform:
   m_ObjectHideFlags: 0
