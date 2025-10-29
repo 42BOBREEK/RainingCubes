@@ -35,14 +35,4 @@ public class CubeSpawner : MonoBehaviour
             yield return new WaitForSeconds(_spawningCooldown);
         }
     }
-
-    /*private IEnumerator DeactivateCube(Cube cube)
-    {
-        if(cube.IsColorChanged == false)
-            yield return null;
-
-        yield return new WaitForSeconds(cube.DelayActivity);
-
-        _cubesPool.ReturnCube(cube);
-    }*/
 }

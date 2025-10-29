@@ -17,7 +17,6 @@ public class CubesPool : MonoBehaviour
         else 
         {
             print(cube.IsDeactivated);
-            print("returning");
             ReturnCube(cube);
         }
     } 
