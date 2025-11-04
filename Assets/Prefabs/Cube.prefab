@@ -150,7 +150,7 @@ MonoBehaviour:
   _minimumLifeSeconds: 2
   _maximumLifeSeconds: 5
   _colorToChange: {r: 0, g: 1, b: 0.11850643, a: 1}
-  _colorChanger: {fileID: 7558708190211523270}
+  DelayActivity: 2
 --- !u!114 &7558708190211523270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,4 +163,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ed970f464bb22f4bc498d08a3d1361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 0}
