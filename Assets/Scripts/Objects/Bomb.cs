@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(TransparencyChanger))]
+[RequireComponent(typeof(Rigidbody))]
 public class Bomb : MonoBehaviour, IPoolable
 {
     [SerializeField] private int _minimumLifeTime;
@@ -14,25 +15,35 @@ public class Bomb : MonoBehaviour, IPoolable
     private int _lifeTime;
     private bool _isActive;
 
+    private Rigidbody _rigidbody;
     private TransparencyChanger _transparencyChanger;
 
     private void Awake()
     {
         _transparencyChanger = GetComponent<TransparencyChanger>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
     {
+        _rigidbody.velocity = Vector3.zero;
+
         _isActive = true;
         _lifeTime = Random.Range(_minimumLifeTime, _maximumLifeTime + 1);
+
         _transparencyChanger.Dissapear(_lifeTime);
-        StartCoroutine(Deactivate());
+        StartCoroutine(WaitThenDeactivate());
     }
 
-    private IEnumerator Deactivate()
+    private IEnumerator WaitThenDeactivate()
     {
         yield return new WaitForSeconds(_lifeTime);
 
+        Deactivate();
+    }
+
+    public void Deactivate()
+    {
         Explode();
         _isActive = false;
     }

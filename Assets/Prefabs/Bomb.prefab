@@ -162,5 +162,5 @@ MonoBehaviour:
   _minimumLifeTime: 2
   _maximumLifeTime: 5
   _explosionRadius: 3
-  _explosionForce: 7.5
-  _explosionPrefab: {fileID: 417761080263594739, guid: 7800b8f6b712bfe49bd663eeb3ebe1e4, type: 3}
+  _explosionForce: 6
+  _explosionPrefab: {fileID: 7022268795503775818, guid: 7377f38a94f13bd43924090d4a77f29e, type: 3}

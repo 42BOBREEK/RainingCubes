@@ -8,12 +8,12 @@ public class Pool<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 
     private Queue<T> _pool = new Queue<T>();
 
+    public event Action ValueChanged;
+    public event Action<T> ObjectReturned;
+
     public int SpawnedObjects { get; private set; }
     public int SpawnedObjectsOnScene { get; private set; }
     public int ActiveObjects { get; private set; }
-
-    public event Action ValueChanged;
-    public event Action<T> ObjectReturned;
 
     public T GetObject()
     {
@@ -36,9 +36,6 @@ public class Pool<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 
     public void ReturnObject(T obj)
     {
-        if(obj.TryGetComponent<ColorChanger>(out ColorChanger colorChanger) == true)
-            colorChanger.ResetColor();
-        
         ObjectReturned?.Invoke(obj);
 
         obj.SetActivity(false);

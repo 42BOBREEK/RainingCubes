@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Renderer))]
 public class TransparencyChanger : MonoBehaviour
 {
     private Renderer _renderer;

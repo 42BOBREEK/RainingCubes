@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(TMP_Text))]
 public class TextInfo<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 {
     [SerializeField] private Pool<T> _pool;
